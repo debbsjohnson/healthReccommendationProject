@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Draví AI</title>
+
+    <style>
+        body {
+            background: #ECE3F0;
+            color: #4A3D5D;
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        #animation {
+            width: 600px;
+            height: 400px;
+            background: url('Star medical sign.jpeg') center/cover no-repeat;
+            /* Replace 'Star medical sign.jpeg' with your desired image */
+        }
+
+        #get-started-button {
+            margin-top: 20px;
+            background-color: #4A3D5D;
+            border: none;
+            color: white;
+            cursor: pointer;
+            padding: 15px 30px;
+            font-size: 18px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        #get-started-button:hover {
+            background-color: #634F7D;
+        }
+
+        /* styles for form page */
+        #form-container {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            width: 70%; /* Set the width to 70% */
+            padding: 20px;
+        }
+
+        #recommendation-form {
+            width: 100%;
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+
+        #recommendation-form .form-group {
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        #recommendation-form label {
+            display: block;
+            margin-bottom: 5px;
+            width: 45%; /* Adjusted label width */
+        }
+
+        #recommendation-form input,
+        #recommendation-form select {
+            width: 45%;
+            padding: 12px;
+            border: 1px solid #D2C2E5;
+            border-radius: 5px;
+            font-size: 16px;
+            color: #4A3D5D;
+            margin-top: 5px;
+            box-sizing: border-box;
+        }
+
+        #recommendation-form button {
+            margin-top: 20px;
+            background-color: #4A3D5D;
+            border: none;
+            color: white;
+            cursor: pointer;
+            padding: 15px 30px;
+            font-size: 18px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        #recommendation-form button:hover {
+            background-color: #634F7D;
+        }
+
+        /* navigation button styling */
+        .back-to-home {
+            background-color: #4A3D5D;
+            border: none;
+            color: white;
+            cursor: pointer;
+            padding: 15px 30px;
+            font-size: 18px;
+            border-radius: 5px;
+            margin-top: 20px;
+            transition: background-color 0.3s;
+        }
+
+        .back-to-home:hover {
+            background-color: #634F7D;
+        }
+
+        .form-row{
+            display: flex;
+            flex-direction: column;
+        }
+
+        .label-column, .input-column {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 5px;
+        }
+
+        .label-column > label, .input-column > input, .input-column > select {
+            flex-basis: 48%;
+            margin-bottom: 5px;
+            margin-top: 5px;
+        }
+
+        /* #physicalactivitylevel{
+            flex-grow: 1;
+            width: max-content;
+            box-sizing: border-box;
+        } */
+
+        .PAL-input{
+            display: grid;
+            grid-row: 1;
+            width: max-content;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- home page -->
+    <div id="welcome-container">
+        <h1>Welcome to Draví AI</h1>
+        <div id="animation"></div>
+        <button id="get-started-button">Get Started</button>
+    </div>
+
+    <!-- form page -->
+    <div id="form-container">
+        <h1>Health Recommendations</h1>
+
+        <form id="recommendation-form" action="/recommend" method="post">
+            <div class="form-row">
+                <div class="label-column">
+                    <label for="age">Age:</label>
+                    <label for="gender">Gender:</label>
+                </div>
+                <div class="input-column">
+                    <input type="number" class="form-control" id="age" name="age" required>
+                    <select class="form-control" id="gender" name="gender" required>
+                        <option value="" selected> </option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="label-column">
+                    <label for="weight">Weight (kg):</label>
+                    <label for="height">Height (m):</label>
+                </div>
+                <div class="input-column">
+                    <input type="number" class="form-control" id="weight" name="weight" required>
+                    <input type="number" class="form-control" id="height" name="height" step="0.01" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="label-column">
+                    <label for="bloodType">Blood Type:</label>
+                    <label for="medicalcondition">Medical Condition:</label>
+                </div>
+                <div class="input-column">
+                    <select class="form-control" id="bloodType" name="bloodType" required>
+                        <option value="A+">A+</option>
+                        <option value="A-">A-</option>
+                        <option value="B+">B+</option>
+                        <option value="B-">B-</option>
+                        <option value="AB+">AB+</option>
+                        <option value="AB-">AB-</option>
+                        <option value="O+">O+</option>
+                        <option value="O-">O-</option>
+                    </select>
+                    <input type="text" class="form-control" id="medicalcondition" name="medicalcondition">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="label-column">
+                    <label for="sleepduration">Sleep Duration:</label>
+                    <label for="qualityofsleep">Quality of Sleep:</label>
+                </div>
+                <div class="input-column">
+                    <input type="number" class="form-control" id="sleepduration" name="sleepduration" min="0" max="24">
+                    <input type="number" class="form-control" id="qualityofsleep" name="qualityofsleep" min="0" max="10">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <label class="label-column" for="physicalactivitylevel">Physical Activity Level:</label>
+                <input class="PAL-input" type="number" id="physicalactivitylevel" name="physicalactivitylevel"
+                    min="10" max="100">
+
+            </div>
+
+            <button type="submit" class="btn btn-danger btn-lg">Recommend Diets</button>
+        </form>
+
+        <!-- back to home button -->
+        <button class="back-to-home" onclick="goToHomePage()">Back to Home</button>
+    </div>
+
+    <script>
+        const formContainer = document.getElementById('form-container');
+        const welcomeContainer = document.getElementById('welcome-container');
+
+        document.getElementById('get-started-button').addEventListener('click', () => {
+            welcomeContainer.style.display = 'none';
+            formContainer.style.display = 'flex';
+        });
+
+        function goToHomePage() {
+            welcomeContainer.style.display = '';
+            formContainer.style.display = 'none';
+        }
+    </script>
+</body>
+
+</html>
